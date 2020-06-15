@@ -48,12 +48,12 @@ public class BusinessLead extends  BusinessEmployee{
     public String getTeamStatus(){
         String status = employeeStatus();
         if (this.directReport.size() == 0){
-            status += "and no direct reports yet\n";
+            status += " and no direct reports yet\n";
         }else{
-            status += "and is managing: \n";
+            status += " and is managing: \n";
             for(int i = 0; i < this.directReport.size(); i++){
                 int j = i + 1;
-                status += "\t" + j + ". " + this.directReport.get(i).employeeStatus();
+                status += "\t" + this.directReport.get(i).employeeStatus() + "\n";
             }
         }
         return status;

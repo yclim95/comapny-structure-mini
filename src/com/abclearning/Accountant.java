@@ -31,7 +31,7 @@ public class Accountant extends BusinessEmployee{
     }
 
     public String employeeStatus(){
-        return (super.employeeStatus() + " is supporting " + this.technicalLead + "\n");
+        return (super.employeeStatus() + " is supporting " + this.technicalLead);
     }
     public Employee getManager() {
         return this.businessLead; // Business Lead is the manager of Accountant

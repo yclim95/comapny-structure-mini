@@ -60,8 +60,8 @@ public class TechnicalLead extends  TechnicalEmployee{
         if (!end){
             for(int i = 0; i < this.directReport.size(); i++){
                 int j = i + 1;
-                status += "\t" + j + ". " + this.directReport.get(i).ID + " " + this.directReport.get(i).name +
-                " has " + this.directReport.get(i).checkIn;
+                status += "\t" + this.directReport.get(i).ID + " " + this.directReport.get(i).name +
+                " has " + this.directReport.get(i).checkIn + " check-ins\n";
             }
         }
         return status;
