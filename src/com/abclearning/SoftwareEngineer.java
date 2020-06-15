@@ -1,33 +1,35 @@
 package com.abclearning;
 
-public class SoftwareEngineer extends  TechnicalEmployee{
+public class SoftwareEngineer extends TechnicalEmployee {
     private boolean codeAccess;
-    TechnicalLead technicalLead;
-    public SoftwareEngineer(String name){
+
+    public SoftwareEngineer(String name) {
         super(name);
+        setCodeAccess(true);
     }
 
-    public boolean getCodeAccess(){
+    public boolean getCodeAccess() {
         return codeAccess;
     }
 
-    public void setCodeAccess(boolean codeAccess){
+    public void setCodeAccess(boolean codeAccess) {
         this.codeAccess = codeAccess;
     }
 
-    public int getSuccessfulCheckIns(){
+    public int getSuccessfulCheckIns() {
         return checkIn;
     }
 
-    public boolean checkInCode(){
-        if (this.technicalLead.approveCheckIn(this)){
-            checkIn++;
+    public boolean checkInCode() {
+        TechnicalLead techLead = (TechnicalLead) this.getManager();
+        if (techLead.approveCheckIn(this)) {
+            this.checkIn++;
             return true;
         }
-        return false;
-    }
-    public Employee getManager() {
-        return this.technicalLead;
+        else{
+            codeAccess = false;
+            return false;
+        }
     }
 
     public String employeeStatus() {

@@ -1,13 +1,17 @@
 package com.abclearning;
 
 abstract public class Employee {
+    private static int countEmployee;
     String name;
     double baseSalary;
     int ID;
-    private static int countEmployee;
     double bonus;
+    public double bonusBudget;
+    public int headcount = 0;
+    public Employee manager;
+    public Accountant accountantSupport;
 
-    public Employee(String name, double baseSalary){
+    public Employee(String name, double baseSalary) {
         this.name = name;
         this.baseSalary = baseSalary;
         countEmployee++;
@@ -15,32 +19,42 @@ abstract public class Employee {
     }
 
     //Overloading constructing
-    public Employee(String name){
+    public Employee(String name) {
         super();
         this.name = name;
     }
 
-    public double getBaseSalary(){
+    public double getBaseSalary() {
         return this.baseSalary;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public int getEmployeeID(){
+    public int getEmployeeID() {
         return this.ID;
     }
 
-    public boolean equals (Employee other){
-        return this.ID == other.ID;
+    public boolean equals(Employee other) {
+        return this.getEmployeeID() == other.getEmployeeID();
     }
 
-    public String toString(){
-        return (this.ID + " " + this.name);
+    public String toString() {
+        return (this.getEmployeeID() + " " + this.getName());
     }
 
-    abstract public Employee getManager();
+    public Employee getManager(){
+        return this.manager;
+    };
+
+    public void setManager(Employee manager){
+        this.manager = manager;
+    }
+
+    public Accountant getAccountantSupport(){
+        return this.accountantSupport;
+    }
 
     abstract public String employeeStatus();
 }

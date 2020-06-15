@@ -1,10 +1,10 @@
 package com.abclearning;
 
 public class Accountant extends BusinessEmployee{
-    BusinessLead businessLead;
     TechnicalLead technicalLead;
     public Accountant(String name){
         super(name);
+        bonusBudget = 0;
     }
 
     public TechnicalLead getTeamSupported(){
@@ -15,25 +15,22 @@ public class Accountant extends BusinessEmployee{
     public void supportTeam(TechnicalLead technicalLead){
         // Should allow a reference to Technical Lead
         this.technicalLead = technicalLead;
-        this.technicalLead.accountant = this;
-        double total = 0;
-
         for (int i = 0; i < this.technicalLead.directReport.size(); i++){
-            total += this.technicalLead.directReport.get(i).getBaseSalary();
+            this.bonusBudget += this.technicalLead.directReport.get(i).getBaseSalary() * 1.1;
         }
-        budget = total * 1.1;
     }
 
     public boolean approveBonus(double bonus){
-        if (bonus > budget || this.technicalLead == null)
+        if (bonus <= getBonusBudget())
+            return true;
+        else{
+            System.out.println(" Rejected because Budget not sufficient. ");
             return false;
-        return true;
+        }
     }
 
     public String employeeStatus(){
         return (super.employeeStatus() + " is supporting " + this.technicalLead);
     }
-    public Employee getManager() {
-        return this.businessLead; // Business Lead is the manager of Accountant
-    }
+
 }

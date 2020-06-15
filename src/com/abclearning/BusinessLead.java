@@ -3,14 +3,13 @@ package com.abclearning;
 import java.util.ArrayList;
 
 public class BusinessLead extends  BusinessEmployee{
-    int headCount = 0;
-    ArrayList<Accountant> directReport = new ArrayList<>();
-    Accountant accountant;
-    TechnicalLead technicalLead;
+    int headCount;
+    ArrayList<Accountant> directReport;
     public BusinessLead(String name){
         super(name);
-        baseSalary = getBaseSalary() * 2.0;
+        baseSalary = getBaseSalary() * 2;
         this.headCount = 10; //Should start with a head count of 10
+        this.directReport = new ArrayList<Accountant>();
     }
 
     public boolean hasHeadCount(){
@@ -20,18 +19,20 @@ public class BusinessLead extends  BusinessEmployee{
     public boolean addReport (Accountant e, TechnicalLead supportTeam){
         if(hasHeadCount()){ // if employee less than 10
             this.directReport.add(e); // add new employee
-            e.businessLead = this; // Set accountant's business lead
-            budget += (1.1 * e.getBaseSalary()); // set budget
+            this.bonusBudget += (1.1 * e.getBaseSalary()); // set budget
             e.supportTeam(supportTeam); //support Technical Lead
+            supportTeam.accountantSupport = e; // Set this accountant to this technicalLead as a support
+            e.setManager(this);
             return true;
         }
         return false;
     }
 
     public boolean requestBonus (Employee e, double bonus){
-        if(budget >= bonus){
-            e.bonus += bonus; // Give bonus if have budget
-            budget -= bonus; // Deduct budget once bonus is given
+        if(this.bonusBudget >= bonus){
+            this.bonusBudget += bonus; //Give business bonus to businesslead
+            e.bonus += bonus; // Give bonus if have budget to employee
+            this.bonusBudget -= bonus; // Deduct budget once bonus is given
             return true;
         }
         return false;
@@ -39,7 +40,11 @@ public class BusinessLead extends  BusinessEmployee{
 
     public boolean approveBonus(Employee e, double bonus){
         for (int i = 0; i < this.directReport.size(); i++){
-            if(this.directReport.get(i).equals(e.getManager()) && this.directReport.get(i).approveBonus(bonus))
+            if(this.directReport.get(i).getTeamSupported().equals(e.getManager()) &&
+                    this.directReport.get(i).approveBonus(bonus)){
+                e.bonus += bonus;
+                this.directReport.get(i).bonusBudget -= bonus;
+            }
                 return true;
         }
         return false;
@@ -53,12 +58,10 @@ public class BusinessLead extends  BusinessEmployee{
             status += " and is managing: \n";
             for(int i = 0; i < this.directReport.size(); i++){
                 int j = i + 1;
-                status += "\t" + this.directReport.get(i).employeeStatus() + "\n";
+                status += "\t" + " " + this.directReport.get(i).employeeStatus() + "\n";
             }
         }
         return status;
     }
-    public Employee getManager() {
-        return null;
-    }
+
 }

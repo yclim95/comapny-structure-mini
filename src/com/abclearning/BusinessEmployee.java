@@ -1,17 +1,19 @@
 package com.abclearning;
 
 abstract public class BusinessEmployee extends Employee{
-    double budget;
     public BusinessEmployee(String name){
         super(name, 50000.0);
     }
 
     public double getBonusBudget(){
-        return this.budget;
+        return bonusBudget;
     }
-    abstract public Employee getManager();
+    public void setBonusBudget(double bonusBudget){
+        this.bonusBudget = bonusBudget;
+    }
 
     public String employeeStatus() {
-        return (this.ID + " " + this.name) + "with a budget of " + this.budget;
+        String s = String.format("%.2f",getBonusBudget());
+        return this.toString() + " with a budget of " + s;
     }
 }
