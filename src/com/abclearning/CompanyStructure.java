@@ -21,6 +21,7 @@ public class CompanyStructure {
         seC.checkInCode(); // seC checkin ++ (2)
 
 
+        // Print the status of each team member under CTO
         System.out.println(CTO.getTeamStatus());
         
 
@@ -45,6 +46,7 @@ public class CompanyStructure {
         seF.checkInCode(); // seF checkin ++ (3)
         seF.checkInCode(); // seF checkin ++ (4)
 
+        // Print the status of each team member under VPofENG
         System.out.println(VPofENG.getTeamStatus());
 
 
@@ -56,6 +58,8 @@ public class CompanyStructure {
         //Add Report Line
         CFO.addReport(actA, CTO);
         CFO.addReport(actB, VPofENG);
+
+        // Print the status of each team member under CFO
         System.out.println(CFO.getTeamStatus());
 
 
@@ -65,19 +69,19 @@ public class CompanyStructure {
         System.out.println(actB.toString() + "'s manager is " + actB.getManager().toString()); // ActB's Manager
         System.out.println();
 
-        //Approve Bonus
+        //Request & Approve Bonus
         System.out.println("Testing Business Lead approvedBonus()");
-        System.out.println(seA.getManager() + " is asking for $10, 000 bonus for " + seA.getName() + ", " +
+        System.out.print(seA.getManager() + " is asking for $10, 000 bonus for " + seA.getName() + ", " +
                 "(the Approval result should be TRUE): ");
         System.out.println(CTO.requestBonus(seA, 10000));
         System.out.println("Updated budget is: " + seA.getManager().getAccountantSupport().getBonusBudget() + "\n");
 
-        System.out.println(seF.getManager() + " is asking for $5, 000 bonus for " + seF.getName() + ", " +
+        System.out.print(seF.getManager() + " is asking for $5, 000 bonus for " + seF.getName() + ", " +
                 "(the Approval result should be TRUE): ");
         System.out.println(VPofENG.requestBonus(seF, 5000));
         System.out.println("Updated budget is: " + seF.getManager().getAccountantSupport().getBonusBudget() + "\n");
 
-        System.out.println(seF.getManager() + " is asking for $400, 000 bonus for " + seF.getName() + ", " +
+        System.out.print(seF.getManager() + " is asking for $400, 000 bonus for " + seF.getName() + ", " +
                 "(the Approval result should be FALSE): ");
         System.out.println(VPofENG.requestBonus(seF, 400000));
         System.out.println("Updated budget is: " + seF.getManager().getAccountantSupport().getBonusBudget() + "\n");
